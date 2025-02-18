@@ -1,10 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "../components/ui/button"
+import { Input } from "../components/ui/input"
 import { motion } from "framer-motion"
-import { supabase } from '@/lib/supabase'
+import { supabase } from '../lib/supabase'
 
 const LinkShortener = () => {
   const [longUrl, setLongUrl] = useState("")
