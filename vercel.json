@@ -1,0 +1,13 @@
+{
+  "rewrites": [
+    { "source": "/:shortCode", "destination": "/api/redirect/:shortCode" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    }
+  ]
+} 
