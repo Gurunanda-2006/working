@@ -31,9 +31,8 @@ export async function middleware(request: NextRequest) {
         // Get the original URL from Supabase
         const { data, error } = await supabase
           .from('shortened_urls')
-          .select('original_url')
+          .select('original_url, clicks')
           .eq('short_code', shortCode)
-          .eq('domain', hostname)
           .single()
 
         if (error || !data) {
@@ -43,12 +42,17 @@ export async function middleware(request: NextRequest) {
         // Update click count
         await supabase
           .from('shortened_urls')
-          .update({ clicks: data.clicks + 1 })
+          .update({ clicks: (data.clicks || 0) + 1 })
           .eq('short_code', shortCode)
-          .eq('domain', hostname)
+
+        // Make sure the URL starts with http:// or https://
+        let redirectUrl = data.original_url
+        if (!redirectUrl.startsWith('http://') && !redirectUrl.startsWith('https://')) {
+          redirectUrl = 'https://' + redirectUrl
+        }
 
         // Redirect to original URL
-        return NextResponse.redirect(new URL(data.original_url))
+        return NextResponse.redirect(redirectUrl)
       } catch (error) {
         console.error('Redirect error:', error)
         return NextResponse.redirect(new URL('/', request.url))
