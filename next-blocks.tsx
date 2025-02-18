@@ -1,10 +1,6 @@
 "use client"
 
-import { Canvas } from "@react-three/fiber"
-import { OrbitControls, Environment } from "@react-three/drei"
-import { useRef, useState, useEffect } from "react"
-import * as THREE from "three"
-import LinkShortener from "./link-shortener"
+import LinkShortener from './link-shortener'
 
 const isMobile = () => {
   if (typeof window === "undefined") return false
@@ -137,7 +133,7 @@ const Scene = () => {
   )
 }
 
-export default function Component() {
+export default function NextBlocks() {
   return (
     <div className="w-full h-screen bg-gray-900 relative">
       <Canvas camera={{ position: [10.047021, -0.127436, -11.137374], fov: 50 }}>
